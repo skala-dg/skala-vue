@@ -34,7 +34,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="weather-mockup">
+  <div class="weather-composition">
     <h2 class="weather-title">과제 2: 날씨 (컴포지션)</h2>
     <br />
     <hr />
