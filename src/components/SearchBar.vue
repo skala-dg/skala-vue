@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-const emits = defineEmits({ query: String })
-const searchQuery = ref('')
+defineEmits({ query: String })
 </script>
 <template>
   <input
