@@ -1,10 +1,13 @@
 <script setup>
-import Weather1 from './components/Weather1.vue'
+import WeatherMockup from './components/WeatherMockup.vue'
+import WeatherComposition from './components/WeatherComposition.vue'
 </script>
 
 <template>
   <div style="padding: 20px">
-    <Weather1></Weather1>
+    <WeatherMockup></WeatherMockup>
+    <br />
+    <WeatherComposition></WeatherComposition>
   </div>
 </template>
 
