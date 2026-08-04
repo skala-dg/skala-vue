@@ -1,17 +1,16 @@
 <script setup>
-import WeatherMockup from './components/WeatherMockup.vue'
-import WeatherComposition from './components/WeatherComposition.vue'
-import WeatherComponent from './components/WeatherComponent.vue'
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
   <div style="padding: 20px">
-    <WeatherMockup></WeatherMockup>
-    <br />
-    <WeatherComposition></WeatherComposition>
-    <br />
-    <WeatherComponent></WeatherComponent>
+    <h1>과제 4: 라우터 적용</h1>
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+    </nav>
   </div>
+  <RouterView></RouterView>
 </template>
 
 <style scoped></style>
