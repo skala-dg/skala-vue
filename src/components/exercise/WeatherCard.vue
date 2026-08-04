@@ -1,4 +1,6 @@
 <script setup>
+import { useConfigStore } from '@/stores/configStore'
+const configStore = useConfigStore()
 defineProps({
   cityItem: {
     type: Object,
@@ -12,7 +14,11 @@ const emit = defineEmits(['selected-name', 'selected-detail'])
   <div class="weather-box" @click="emit('selected-name', cityItem.name)">
     <h3>지역별 날씨 현황</h3>
     <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
-    <p>현재 기온: {{ cityItem.temp }}</p>
+    <p>
+      현재 기온:
+      {{ configStore.unit === 'celsius' ? cityItem.temp : Math.round(cityItem.temp * 18 + 320) / 10
+      }}{{ configStore.unitSymbol }}
+    </p>
 
     <span v-if="cityItem.temp >= 25" class="hot-icon">더움 (25도 이상)</span>
     <span v-else class="cold-icon">시원함 (25도 미만)</span>

@@ -12,4 +12,10 @@ export const useConfigStore = defineStore('config', () => {
   function toggleUnit() {
     unit.value = unit.value === 'celsius' ? 'fahrenheit' : 'celsius'
   }
+
+  return {
+    unit,
+    unitSymbol,
+    toggleUnit,
+  }
 })

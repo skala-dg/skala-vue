@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import UnitToggle from './components/exercise/UnitToggle.vue'
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
     </nav>
+    <UnitToggle></UnitToggle>
   </div>
   <RouterView></RouterView>
 </template>
