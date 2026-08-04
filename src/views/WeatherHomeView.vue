@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
+import { searchByChosung } from '@/components/utils/koreaninput.js'
 // 자식 컴포넌트 import
+
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
 import WeatherCard from '../components/exercise/WeatherCard.vue'
@@ -23,12 +25,9 @@ const showDetail = (cityId) => {
 }
 // 검색 도시: 사용자가 입력한 검색어가 도시 이름에 포함된 항목만 필터링
 const filteredWeatherList = computed(() => {
-  const input = searchQuery.value.trim()
-
-  if (input === '') {
-    return weatherList.value
-  }
-  return weatherList.value.filter((item) => item.name.includes(input))
+  return weatherList.value.filter((item) =>
+    searchByChosung(searchQuery.value, item.name),
+  )
 })
 
 // SelectedCityInfo 감시: 상태바 문구가 바뀔때 마다 콘솔로그를 작성
