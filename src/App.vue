@@ -11,8 +11,8 @@ import UnitToggle from './components/exercise/UnitToggle.vue'
       <RouterLink to="/about">About</RouterLink>
     </nav>
     <UnitToggle></UnitToggle>
+    <RouterView></RouterView>
   </div>
-  <RouterView></RouterView>
 </template>
 
 <style scoped></style>

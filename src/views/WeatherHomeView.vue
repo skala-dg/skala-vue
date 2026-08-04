@@ -17,7 +17,7 @@ const weatherList = ref([
   { id: 'city_02', name: '수원', temp: 24, status: '비' },
   { id: 'city_03', name: '부산', temp: 26, status: '구름' },
 ])
-// 상세보기 클릭시
+// 상세보기 클릭시 view 이동
 const showDetail = (cityId) => {
   router.push(`/weather/${cityId}`)
 }
@@ -30,6 +30,7 @@ const filteredWeatherList = computed(() => {
   }
   return weatherList.value.filter((item) => item.name.includes(input))
 })
+
 // SelectedCityInfo 감시: 상태바 문구가 바뀔때 마다 콘솔로그를 작성
 watch(selectedCityInfo, (newValue, oldValue) => {
   console.log(`[watch 감시] 상태 바 문구가 업데이트되었습니다.\n${oldValue} --> ${newValue}`)
