@@ -1,3 +1,4 @@
+/** * 검색창 */
 <script setup>
 defineProps({
   currentQuery: {

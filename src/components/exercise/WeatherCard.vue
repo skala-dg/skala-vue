@@ -1,7 +1,8 @@
 <script setup>
+import { computed } from 'vue'
 import { useConfigStore } from '@/stores/configStore'
 const configStore = useConfigStore()
-defineProps({
+const props = defineProps({
   cityItem: {
     type: Object,
     required: true,
@@ -9,6 +10,14 @@ defineProps({
 })
 
 const emit = defineEmits(['selected-name', 'selected-detail'])
+
+const displayTemp = computed(() => {
+  const rawTemp = props.cityItem.temp
+  if (configStore.unit === 'fahrenheit') {
+    return Math.round((rawTemp * 9) / 5 + 32)
+  }
+  return rawTemp
+})
 </script>
 <template>
   <div class="weather-box" @click="emit('selected-name', cityItem.name)">
@@ -16,8 +25,7 @@ const emit = defineEmits(['selected-name', 'selected-detail'])
     <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
     <p>
       현재 기온:
-      {{ configStore.unit === 'celsius' ? cityItem.temp : Math.round(cityItem.temp * 18 + 320) / 10
-      }}{{ configStore.unitSymbol }}
+      {{ displayTemp }}{{ configStore.unitSymbol }}
     </p>
 
     <span v-if="cityItem.temp >= 25" class="hot-icon">더움 (25도 이상)</span>

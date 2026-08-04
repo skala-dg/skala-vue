@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import BaseDashboardCard from '@/components/exercise/BaseDashboardCard.vue'
 import { useConfigStore } from '@/stores/configStore'
@@ -12,6 +12,14 @@ const weatherList = ref([
 
 const route = useRoute()
 const cityItem = weatherList.value.find((city) => city.id === route.params.cityId)
+
+const displayTemp = computed(() => {
+  const rawTemp = cityItem.temp
+  if (configStore.unit === 'fahrenheit') {
+    return Math.round((rawTemp * 9) / 5 + 32)
+  }
+  return rawTemp
+})
 </script>
 
 <template>
@@ -21,8 +29,7 @@ const cityItem = weatherList.value.find((city) => city.id === route.params.cityI
     <p>지정 지역 {{ cityItem.name }}</p>
     <p>
       온도:
-      {{ configStore.unit === 'celsius' ? cityItem.temp : Math.round(cityItem.temp * 18 + 320) / 10
-      }}{{ configStore.unitSymbol }}
+      {{ displayTemp }}{{ configStore.unitSymbol }}
     </p>
     <p>상태: {{ cityItem.status }}</p>
   </BaseDashboardCard>
