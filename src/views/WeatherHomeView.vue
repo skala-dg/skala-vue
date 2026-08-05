@@ -118,6 +118,7 @@ watchEffect(() => {
         :city-item="item"
         @selected-name="(name) => (selectedCityInfo = `${name}을 선택하셨습니다.`)"
         @selected-detail="showDetail"
+        @refresh-weather="handleRefreshCity"
       ></WeatherCard>
       <p v-if="filteredWeatherList.length === 0" class="empty-meesage">
         검색 결과와 일치하는 도시가 없습니다.

@@ -64,7 +64,7 @@ const iconUrl = computed(() => {
 
     <span v-if="cityItem.temp >= 25" class="hot-icon">더움 (25도 이상)</span>
     <span v-else class="cold-icon">시원함 (25도 미만)</span>
-
+    <button class="refresh-btn" @click="emit('refresh-weather', cityItem.id)">날씨 갱신</button>
     <button class="detail-btn" @click.stop="emit('selected-detail', cityItem.id)">상세보기</button>
   </div>
 </template>
