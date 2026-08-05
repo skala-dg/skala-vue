@@ -1,0 +1,1 @@
+import{H as e,R as t,d as n,et as r,m as i,t as a,v as o,y as s}from"./_plugin-vue_export-helper-ClNJU8bC.js";var c={},l={class:`notFound`};function u(a,c){let u=e(`RouterLink`);return t(),i(`div`,l,[c[1]||=n(`h1`,null,`You're in a wrong page`,-1),n(`nav`,null,[s(u,{to:`/`},{default:r(()=>[...c[0]||=[o(`홈으로 돌아가기`,-1)]]),_:1})])])}var d=a(c,[[`render`,u]]);export{d as default};

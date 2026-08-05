@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useConfigStore } from '@/stores/configStore'
 
 const configStore = useConfigStore()
@@ -9,9 +9,22 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+
+  dragEnabled: {
+    type: Boolean,
+    default: true,
+  },
 })
 
-const emit = defineEmits(['selected-name', 'selected-detail', 'refresh-weather'])
+const emit = defineEmits([
+  'selected-name',
+  'selected-detail',
+  'refresh-weather',
+  'drag-start',
+  'drag-end',
+  'toggle-favorite',
+  'remove-city',
+])
 
 const convertTemp = (temp) => {
   if (temp === null || temp === undefined) return '-'
@@ -27,7 +40,7 @@ const displayTemp = computed(() => convertTemp(props.cityItem.temp))
 const displayFeelsLike = computed(() => convertTemp(props.cityItem.feelsLike))
 const displayMaxTemp = computed(() => convertTemp(props.cityItem.tempMax))
 const displayMinTemp = computed(() => convertTemp(props.cityItem.tempMin))
-
+const isDragging = ref(false)
 const iconUrl = computed(() => {
   if (!props.cityItem.icon) return ''
 
@@ -82,32 +95,110 @@ const formattedUpdatedAt = computed(() => {
     minute: '2-digit',
   }).format(date)
 })
+
+const handleDragStart = (event) => {
+  if (!props.dragEnabled) {
+    event.preventDefault()
+    return
+  }
+
+  const cardElement = event.currentTarget.closest('.weather-card')
+
+  if (cardElement && event.dataTransfer) {
+    event.dataTransfer.effectAllowed = 'move'
+
+    // 드래그 이미지 추가
+    event.dataTransfer.setDragImage(cardElement, cardElement.offsetWidth - 24, 24)
+  }
+
+  isDragging.value = true
+
+  emit('drag-start', props.cityItem.id, event)
+}
+
+const handleDragEnd = () => {
+  isDragging.value = false
+  emit('drag-end')
+}
 </script>
 
 <template>
   <el-card
     shadow="never"
     class="weather-card"
-    :class="weatherToneClass"
+    :class="[
+      weatherToneClass,
+      { 'weather-card--dragging': isDragging, 'weather-card--favorite': cityItem.isFavorite },
+    ]"
     @click="emit('selected-name', cityItem.name)"
   >
     <div class="card-glow"></div>
 
     <div class="card-header">
-      <div>
-        <span class="location-label">CURRENT WEATHER</span>
-        <h3>{{ cityItem.name }}</h3>
-        <el-tag size="small" round effect="light" type="info">
+      <div class="location-label">
+        <span>{{ cityItem.name }}</span>
+
+        <el-tag>
           {{ cityItem.status }}
         </el-tag>
       </div>
 
-      <img
-        v-if="iconUrl"
-        :src="iconUrl"
-        :alt="`${cityItem.name} ${cityItem.status} 날씨 아이콘`"
-        class="weather-icon"
-      />
+      <div class="card-header-actions">
+        <img
+          v-if="iconUrl"
+          :src="iconUrl"
+          :alt="`${cityItem.name} 날씨 아이콘`"
+          class="weather-icon"
+        />
+
+        <!-- 세 버튼을 별도의 세로 영역으로 묶습니다. -->
+        <div class="card-side-actions">
+          <button
+            type="button"
+            class="drag-handle"
+            :class="{
+              'drag-handle--disabled': !dragEnabled,
+            }"
+            :draggable="dragEnabled"
+            :aria-disabled="String(!dragEnabled)"
+            :title="
+              dragEnabled
+                ? '드래그하여 카드 순서 변경'
+                : '검색어를 초기화하면 순서를 변경할 수 있습니다.'
+            "
+            aria-label="카드 순서 변경"
+            @click.stop
+            @dragstart.stop="handleDragStart"
+            @dragend.stop="handleDragEnd"
+          >
+            <span aria-hidden="true">⠿</span>
+          </button>
+
+          <button
+            type="button"
+            class="card-icon-button favorite-button"
+            :class="{
+              'favorite-button--active': cityItem.isFavorite,
+            }"
+            :aria-pressed="Boolean(cityItem.isFavorite)"
+            :title="cityItem.isFavorite ? '즐겨찾기에서 해제' : '즐겨찾기에 추가'"
+            @click.stop="emit('toggle-favorite', cityItem.id)"
+          >
+            <span aria-hidden="true">
+              {{ cityItem.isFavorite ? '★' : '☆' }}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            class="card-icon-button delete-button"
+            :title="`${cityItem.name} 삭제`"
+            @click.stop="emit('remove-city', cityItem.id)"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="temperature-row">

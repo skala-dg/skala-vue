@@ -1,7 +1,13 @@
 .weather-card {
   position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
   height: 100%;
   overflow: hidden;
+
   cursor: pointer;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(255, 255, 255, 0.84);
@@ -9,9 +15,11 @@
   box-shadow: 0 18px 42px rgba(71, 103, 148, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+
   transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .weather-card:hover {
@@ -35,6 +43,11 @@
   background: linear-gradient(150deg, rgba(255, 255, 255, 0.96), rgba(237, 233, 254, 0.82));
 }
 
+.weather-card--dragging {
+  opacity: 0.42;
+  transform: scale(0.985);
+}
+
 .card-glow {
   position: absolute;
   top: -70px;
@@ -47,22 +60,95 @@
 
 :deep(.el-card__body) {
   position: relative;
+
   display: flex;
   flex-direction: column;
+
+  width: 100%;
+  min-width: 0;
   min-height: 360px;
+
   padding: 24px;
+  overflow: hidden;
+}
+.drag-handle {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 0;
+  border-radius: 9px;
+
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.58);
+
+  font-size: 21px;
+  line-height: 1;
+
+  cursor: grab;
+  user-select: none;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
+.drag-handle:hover {
+  color: var(--weather-primary);
+  background: rgba(64, 158, 255, 0.14);
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+  transform: scale(0.92);
+}
+
+.drag-handle--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.drag-handle--disabled:hover {
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.58);
+}
 .card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-}
 
+  width: 100%;
+  min-width: 0;
+}
+.card-header-actions {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+
+  min-width: 0;
+  margin-left: auto;
+}
 .location-label {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+
   color: #7c8aa0;
-  font-size: 10px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.13em;
 }
@@ -150,4 +236,61 @@
 .card-actions :deep(.el-button) {
   width: 100%;
   margin: 0;
+}
+.card-side-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.58);
+
+  font-size: 19px;
+  line-height: 1;
+
+  border: 0;
+  border-radius: 9px;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.card-icon-button:active {
+  transform: scale(0.92);
+}
+
+.favorite-button:hover,
+.favorite-button--active {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.14);
+}
+
+.delete-button:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.weather-card--favorite {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 18px 42px rgba(245, 158, 11, 0.15);
+}
+
+.weather-card--favorite:hover {
+  box-shadow: 0 24px 52px rgba(245, 158, 11, 0.2);
 }

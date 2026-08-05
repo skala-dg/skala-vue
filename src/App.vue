@@ -8,16 +8,19 @@ import UnitToggle from './components/exercise/UnitToggle.vue'
     <el-header class="app-header">
       <div class="header-inner">
         <RouterLink to="/" class="brand" aria-label="날씨 대시보드 홈">
-          <span class="brand-mark">W</span>
+          <span class="brand-mark">S</span>
           <span class="brand-text">
-            <strong>Weatherly</strong>
+            <strong>SKALA Weather</strong>
             <small>City Weather Dashboard</small>
           </span>
         </RouterLink>
 
         <nav class="main-nav" aria-label="주요 메뉴">
-          <RouterLink to="/" class="nav-link">대시보드</RouterLink>
-          <RouterLink to="/about" class="nav-link">서비스 소개</RouterLink>
+          <RouterLink to="/">날씨 대시보드</RouterLink>
+
+          <RouterLink to="/korea"> 한국 중기예보 </RouterLink>
+
+          <RouterLink to="/about"> 서비스 소개 </RouterLink>
         </nav>
 
         <UnitToggle />
@@ -29,8 +32,8 @@ import UnitToggle from './components/exercise/UnitToggle.vue'
     </el-main>
 
     <el-footer class="app-footer">
-      <span>Weatherly</span>
-      <span>OpenWeather 기반 도시 날씨 서비스</span>
+      <span>SKALA Weather</span>
+      <span>판교 9반 P301 임동건</span>
     </el-footer>
   </el-container>
 </template>

@@ -37,9 +37,9 @@
   color: white;
   font-size: 21px;
   font-weight: 800;
-  background: linear-gradient(145deg, #60a5fa, #6366f1);
+  background: linear-gradient(145deg, #ed0033, #ff7a00);
   border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.28);
+  box-shadow: 0 10px 25px rgba(245, 70, 20, 0.3);
 }
 
 .brand-text {
@@ -62,7 +62,7 @@
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 32px;
   margin: 0 auto;
 }
 

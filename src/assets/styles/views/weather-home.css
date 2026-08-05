@@ -102,14 +102,27 @@
 
 .weather-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
   padding-top: 20px;
   border-top: 1px solid rgba(148, 163, 184, 0.15);
 }
 
+.weather-action-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
 .weather-actions :deep(.el-button) {
   min-width: 145px;
+}
+
+.weather-actions :deep(.el-button + .el-button) {
+  margin-left: 0;
 }
 
 .page-alert,
@@ -144,7 +157,15 @@
 }
 
 .weather-column {
-  margin-bottom: 20px;
+  min-width: 0;
+}
+
+.weather-card-drop-zone {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+
+  overflow: hidden;
 }
 
 .empty-card {
@@ -188,7 +209,15 @@
   }
 
   .weather-actions {
+    align-items: stretch;
     flex-direction: column;
+  }
+
+  .weather-action-group {
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
   }
 
   .weather-actions :deep(.el-button) {

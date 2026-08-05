@@ -1,0 +1,124 @@
+.korea-page {
+    width: min(1180px, 92%);
+    margin: 0 auto;
+    padding: 42px 0 72px;
+}
+
+.korea-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+
+    margin-bottom: 28px;
+    padding: 34px;
+
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 28px;
+}
+
+.korea-eyebrow {
+    margin: 0 0 10px;
+
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.korea-title {
+    margin: 0;
+
+    color: #172033;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.2;
+}
+
+.korea-description {
+    max-width: 650px;
+    margin: 16px 0 0;
+
+    color: #64748b;
+    line-height: 1.8;
+    word-break: keep-all;
+}
+
+.korea-guide {
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    padding: 18px 22px;
+
+    color: #475569;
+    background: rgba(239, 246, 255, 0.9);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 18px;
+}
+
+.korea-guide strong {
+    color: #2563eb;
+}
+
+.korea-guide span {
+    font-size: 14px;
+}
+
+.korea-map-section {
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: 28px;
+}
+
+.korea-notice {
+    margin-top: 24px;
+    padding: 28px 32px;
+
+    background: rgba(255, 255, 255, 0.56);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 24px;
+}
+
+.korea-notice h2 {
+    margin: 0 0 14px;
+
+    color: #1e293b;
+    font-size: 18px;
+}
+
+.korea-notice p {
+    margin: 6px 0;
+
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+    .korea-page {
+        padding-top: 24px;
+    }
+
+    .korea-hero {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 26px 22px;
+    }
+
+    .korea-guide {
+        width: 100%;
+    }
+
+    .korea-map-section {
+        padding: 20px 14px;
+    }
+
+    .korea-notice {
+        padding: 24px 20px;
+    }
+}

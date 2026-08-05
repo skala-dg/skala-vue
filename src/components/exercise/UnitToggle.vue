@@ -20,8 +20,8 @@ const handleUnitChange = (nextUnit) => {
       class="unit-group"
       @change="handleUnitChange"
     >
-      <el-radio-button label="celsius">°C</el-radio-button>
-      <el-radio-button label="fahrenheit">°F</el-radio-button>
+      <el-radio-button value="celsius">°C</el-radio-button>
+      <el-radio-button value="fahrenheit">°F</el-radio-button>
     </el-radio-group>
   </div>
 </template>

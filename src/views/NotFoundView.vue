@@ -9,11 +9,18 @@
 </template>
 
 <style>
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
 @media (min-width: 1024px) {
-  .about {
+  .notFound {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
   }
 }
 </style>
