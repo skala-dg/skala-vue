@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const API_URL = 'https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa'
+const API_URL = import.meta.env.PROD
+  ? 'https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa'
+  : '/kma-api/1360000/MidFcstInfoService/getMidTa'
 
 const SERVICE_KEY = import.meta.env.VITE_KMA_SERVICE_KEY
 
@@ -22,8 +24,6 @@ const previousDay = (date) => {
   return copiedDate
 }
 
-// 중기예보는 06시와 18시에 발표되며 최근 24시간 자료만 제공합니다.
-// 최신 발표 자료가 아직 준비되지 않은 경우를 대비해 직전 발표시각도 함께 시도합니다.
 const getTmFcCandidates = () => {
   const now = new Date()
   const hour = now.getHours()
