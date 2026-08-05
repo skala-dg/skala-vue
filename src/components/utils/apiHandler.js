@@ -62,7 +62,16 @@ const TESTWEATHERLIST = [
 const loadWeatherList = () => {
   try {
     const savedList = window.localStorage.getItem(STORAGE_KEY)
-    if (!savedList) return TESTWEATHERLIST
+    if (!savedList) {
+      //return TESTWEATHERLIST
+      navigator.geolocation.getCurrentPosition(function(pos) {
+        const weather = useAPI.fetchWeather(pos.coords.latitude, pos.coords.longitude)
+        const newCity = {
+          id: `${weather.id}`,
+          name: weather.
+        }
+      })
+    }
 
     const parsedList = JSON.parse(savedList)
     return Array.isArray(parsedList) ? parsedList : TESTWEATHERLIST
