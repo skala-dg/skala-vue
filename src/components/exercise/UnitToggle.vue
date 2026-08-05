@@ -8,6 +8,6 @@ const configStore = useConfigStore()
     <span
       >날씨단위: <b>{{ configStore.unit }}</b></span
     >
-    <button class="toggle-btn" @click="configStore.toggleUnit()">단위변경</button>
+    <button @click="configStore.toggleUnit" class="toggle-btn">단위변경</button>
   </div>
 </template>
