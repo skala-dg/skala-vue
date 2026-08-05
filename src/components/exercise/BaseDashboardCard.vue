@@ -1,5 +1,20 @@
-<script setup></script>
+<script setup>
+defineProps({
+  glass: {
+    type: Boolean,
+    default: false,
+  },
+})
+</script>
+
 <template>
-  <div class="base-dashboard-card"><slot></slot></div>
+  <el-card
+    shadow="never"
+    class="base-dashboard-card"
+    :class="{ 'base-dashboard-card--glass': glass }"
+  >
+    <slot></slot>
+  </el-card>
 </template>
-<style scoped></style>
+
+<style scoped src="../../assets/styles/components/base-dashboard-card.css"></style>

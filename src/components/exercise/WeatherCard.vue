@@ -1,7 +1,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useConfigStore } from '@/stores/configStore'
+
 const configStore = useConfigStore()
+
 const props = defineProps({
   cityItem: {
     type: Object,
@@ -12,11 +14,13 @@ const props = defineProps({
 const emit = defineEmits(['selected-name', 'selected-detail', 'refresh-weather'])
 
 const convertTemp = (temp) => {
-  const rawTemp = temp
+  if (temp === null || temp === undefined) return '-'
+
   if (configStore.unit === 'fahrenheit') {
-    return Math.round((rawTemp * 9) / 5 + 32)
+    return Math.round((temp * 9) / 5 + 32)
   }
-  return rawTemp
+
+  return Math.round(temp)
 }
 
 const displayTemp = computed(() => convertTemp(props.cityItem.temp))
@@ -25,16 +29,78 @@ const displayMaxTemp = computed(() => convertTemp(props.cityItem.tempMax))
 const displayMinTemp = computed(() => convertTemp(props.cityItem.tempMin))
 
 const iconUrl = computed(() => {
-  if (!props.cityItem.icon) {
-    return ''
-  }
+  if (!props.cityItem.icon) return ''
+
   return `https://openweathermap.org/payload/api/media/file/${props.cityItem.icon}.png`
 })
+
+const weatherToneClass = computed(() => {
+  const weatherMain = (
+    props.cityItem.weatherMain ??
+    props.cityItem.weather_main ??
+    ''
+  ).toLowerCase()
+
+  if (weatherMain.includes('rain') || weatherMain.includes('drizzle')) {
+    return 'weather-card--rain'
+  }
+
+  if (weatherMain.includes('cloud')) {
+    return 'weather-card--cloud'
+  }
+
+  if (weatherMain.includes('snow')) {
+    return 'weather-card--snow'
+  }
+
+  return 'weather-card--clear'
+})
+
+const comfortTag = computed(() => {
+  if (props.cityItem.temp >= 25) {
+    return { label: '더움', type: 'danger' }
+  }
+
+  return { label: '선선함', type: 'success' }
+})
+
+const formattedUpdatedAt = computed(() => {
+  if (!props.cityItem.updatedAt) return '갱신 시각 정보 없음'
+
+  const rawTimestamp = Number(props.cityItem.updatedAt)
+  const timestamp = rawTimestamp < 100000000000 ? rawTimestamp * 1000 : rawTimestamp
+  const date = new Date(timestamp)
+
+  if (Number.isNaN(date.getTime())) {
+    return String(props.cityItem.updatedAt)
+  }
+
+  return new Intl.DateTimeFormat('ko-KR', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
+})
 </script>
+
 <template>
-  <div class="weather-box" @click="emit('selected-name', cityItem.name)">
-    <div class="city-title">
-      <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
+  <el-card
+    shadow="never"
+    class="weather-card"
+    :class="weatherToneClass"
+    @click="emit('selected-name', cityItem.name)"
+  >
+    <div class="card-glow"></div>
+
+    <div class="card-header">
+      <div>
+        <span class="location-label">CURRENT WEATHER</span>
+        <h3>{{ cityItem.name }}</h3>
+        <el-tag size="small" round effect="light" type="info">
+          {{ cityItem.status }}
+        </el-tag>
+      </div>
 
       <img
         v-if="iconUrl"
@@ -43,45 +109,47 @@ const iconUrl = computed(() => {
         class="weather-icon"
       />
     </div>
-    <p>
-      현재 기온:
-      {{ displayTemp }}{{ configStore.unitSymbol }}
-    </p>
-    <p>
-      최고 기온:
-      {{ displayMaxTemp }}{{ configStore.unitSymbol }}
-    </p>
-    <p>
-      최저 기온:
-      {{ displayMinTemp }}{{ configStore.unitSymbol }}
-    </p>
-    <p>
-      체감 온도:
-      {{ displayFeelsLike }}{{ configStore.unitSymbol }}
-    </p>
-    <p>습도: {{ cityItem.humidity }}%</p>
-    <p>{{ cityItem.updatedAt }}</p>
 
-    <span v-if="cityItem.temp >= 25" class="hot-icon">더움 (25도 이상)</span>
-    <span v-else class="cold-icon">시원함 (25도 미만)</span>
-    <button class="refresh-btn" @click="emit('refresh-weather', cityItem.id)">날씨 갱신</button>
-    <button class="detail-btn" @click.stop="emit('selected-detail', cityItem.id)">상세보기</button>
-  </div>
+    <div class="temperature-row">
+      <strong class="current-temperature">
+        {{ displayTemp }}<span>{{ configStore.unitSymbol }}</span>
+      </strong>
+
+      <el-tag :type="comfortTag.type" round effect="light">
+        {{ comfortTag.label }}
+      </el-tag>
+    </div>
+
+    <div class="weather-metrics">
+      <div class="metric-item">
+        <span>체감</span>
+        <strong>{{ displayFeelsLike }}{{ configStore.unitSymbol }}</strong>
+      </div>
+      <div class="metric-item">
+        <span>습도</span>
+        <strong>{{ cityItem.humidity ?? '-' }}%</strong>
+      </div>
+      <div class="metric-item">
+        <span>최고</span>
+        <strong>{{ displayMaxTemp }}{{ configStore.unitSymbol }}</strong>
+      </div>
+      <div class="metric-item">
+        <span>최저</span>
+        <strong>{{ displayMinTemp }}{{ configStore.unitSymbol }}</strong>
+      </div>
+    </div>
+
+    <div class="updated-at">마지막 갱신 {{ formattedUpdatedAt }}</div>
+
+    <div class="card-actions">
+      <el-button plain round @click.stop="emit('refresh-weather', cityItem.id)">
+        날씨 갱신
+      </el-button>
+      <el-button type="primary" round @click.stop="emit('selected-detail', cityItem.id)">
+        상세보기
+      </el-button>
+    </div>
+  </el-card>
 </template>
-<style scoped>
-.city-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
 
-.city-title h4 {
-  margin: 0;
-}
-
-.weather-icon {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-}
-</style>
+<style scoped src="../../assets/styles/components/weather-card.css"></style>

@@ -1,0 +1,153 @@
+.weather-card {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.84);
+  border-radius: 22px;
+  box-shadow: 0 18px 42px rgba(71, 103, 148, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 52px rgba(56, 89, 133, 0.18);
+}
+
+.weather-card--clear {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(230, 244, 255, 0.82));
+}
+
+.weather-card--cloud {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(226, 232, 240, 0.84));
+}
+
+.weather-card--rain {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(219, 234, 254, 0.84));
+}
+
+.weather-card--snow {
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.96), rgba(237, 233, 254, 0.82));
+}
+
+.card-glow {
+  position: absolute;
+  top: -70px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 68%);
+}
+
+:deep(.el-card__body) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  padding: 24px;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.location-label {
+  color: #7c8aa0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.card-header h3 {
+  margin: 5px 0 9px;
+  color: var(--weather-text);
+  font-size: 24px;
+  letter-spacing: -0.04em;
+}
+
+.weather-icon {
+  width: 82px;
+  height: 82px;
+  margin-top: -10px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(49, 96, 148, 0.15));
+}
+
+.temperature-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 28px 0 24px;
+}
+
+.current-temperature {
+  color: #15213a;
+  font-size: clamp(46px, 6vw, 62px);
+  font-weight: 750;
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+
+.current-temperature span {
+  margin-left: 5px;
+  color: #64748b;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.weather-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 12px;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 13px;
+}
+
+.metric-item span {
+  color: #7b8799;
+  font-size: 12px;
+}
+
+.metric-item strong {
+  color: #26344d;
+  font-size: 13px;
+}
+
+.updated-at {
+  margin-top: 16px;
+  color: #8995a7;
+  font-size: 11px;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.card-actions :deep(.el-button) {
+  width: 100%;
+  margin: 0;
+}

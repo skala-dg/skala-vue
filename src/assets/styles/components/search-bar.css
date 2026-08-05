@@ -1,0 +1,50 @@
+.search-box {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(280px, 1.2fr);
+  align-items: center;
+  gap: 24px;
+}
+
+.search-eyebrow {
+  color: var(--weather-primary-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.search-copy h3 {
+  margin: 5px 0 7px;
+  color: var(--weather-text);
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.search-copy p {
+  margin: 0;
+  color: var(--weather-text-soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.city-search-input :deep(.el-input__wrapper) {
+  min-height: 50px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.22) inset;
+  transition: 0.2s ease;
+}
+
+.city-search-input :deep(.el-input__wrapper:hover),
+.city-search-input :deep(.el-input__wrapper.is-focus) {
+  box-shadow:
+    0 0 0 1px rgba(64, 158, 255, 0.7) inset,
+    0 8px 22px rgba(64, 158, 255, 0.12);
+}
+
+@media (max-width: 700px) {
+  .search-box {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

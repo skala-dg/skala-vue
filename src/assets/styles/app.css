@@ -1,0 +1,136 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 78px;
+  padding: 12px 24px;
+  background: rgba(248, 252, 255, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  width: min(1180px, 100%);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 240px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: white;
+  font-size: 21px;
+  font-weight: 800;
+  background: linear-gradient(145deg, #60a5fa, #6366f1);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.28);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-text strong {
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.brand-text small {
+  margin-top: 4px;
+  color: var(--weather-text-soft);
+  font-size: 11px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.nav-link {
+  padding: 9px 14px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.router-link-exact-active {
+  color: var(--weather-primary-dark);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 6px 18px rgba(71, 103, 148, 0.08);
+}
+
+.app-main {
+  width: min(1180px, calc(100% - 32px));
+  padding: 34px 0 48px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1180px, calc(100% - 32px));
+  height: auto;
+  padding: 24px 0 30px;
+  margin: 0 auto;
+  color: #7c8aa0;
+  font-size: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+@media (max-width: 760px) {
+  .app-header {
+    height: auto;
+    padding: 10px 16px;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .brand {
+    min-width: 0;
+    margin-right: auto;
+  }
+
+  .brand-text small,
+  .main-nav {
+    display: none;
+  }
+
+  .app-main {
+    width: min(100% - 24px, 1180px);
+    padding-top: 22px;
+  }
+
+  .app-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

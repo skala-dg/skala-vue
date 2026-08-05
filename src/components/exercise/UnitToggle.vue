@@ -1,13 +1,29 @@
 <script setup>
 import { useConfigStore } from '@/stores/configStore'
+
 const configStore = useConfigStore()
+
+const handleUnitChange = (nextUnit) => {
+  if (nextUnit !== configStore.unit) {
+    configStore.toggleUnit()
+  }
+}
 </script>
 
 <template>
-  <div class="unit-toggle">
-    <span
-      >날씨단위: <b>{{ configStore.unit }}</b></span
+  <div class="unit-toggle" aria-label="온도 단위 선택">
+    <span class="unit-label">단위</span>
+
+    <el-radio-group
+      :model-value="configStore.unit"
+      size="small"
+      class="unit-group"
+      @change="handleUnitChange"
     >
-    <button @click="configStore.toggleUnit" class="toggle-btn">단위변경</button>
+      <el-radio-button label="celsius">°C</el-radio-button>
+      <el-radio-button label="fahrenheit">°F</el-radio-button>
+    </el-radio-group>
   </div>
 </template>
+
+<style scoped src="../../assets/styles/components/unit-toggle.css"></style>
